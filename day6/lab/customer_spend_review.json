@@ -1,0 +1,35 @@
+{
+  "file": "queries/customer_spend.sql",
+  "reviewed_at": "2026-05-25T16:04:16.576878",
+  "issues_found": 3,
+  "review": {
+    "issues": [
+      {
+        "severity": "Critical",
+        "category": "Correctness",
+        "title": "Incorrect revenue calculation",
+        "line": "SUM(t.amount) as lifetime_value",
+        "problem": "The query is summing all transaction amounts without filtering by status 'COMPLETED', which violates the business rule.",
+        "fix": "SUM(CASE WHEN t.status = 'COMPLETED' THEN t.amount ELSE 0 END) as lifetime_value"
+      },
+      {
+        "severity": "Medium",
+        "category": "Readability",
+        "title": "Missing comments on complex logic",
+        "line": "HAVING SUM(t.amount) > 1000",
+        "problem": "The HAVING clause lacks comments explaining the business logic behind the threshold.",
+        "fix": "-- Only include customers with lifetime value greater than 1000\nHAVING SUM(t.amount) > 1000"
+      },
+      {
+        "severity": "Low",
+        "category": "Readability",
+        "title": "Inconsistent naming convention",
+        "line": "SUM(t.amount) as lifetime_value",
+        "problem": "The alias 'lifetime_value' could be more descriptive, such as 'total_completed_value'.",
+        "fix": "SUM(CASE WHEN t.status = 'COMPLETED' THEN t.amount ELSE 0 END) as total_completed_value"
+      }
+    ],
+    "corrected_sql": "SELECT c.customer_name, c.email, c.tier,\n       SUM(CASE WHEN t.status = 'COMPLETED' THEN t.amount ELSE 0 END) as total_completed_value,\n       COUNT(t.transaction_id) as total_orders\nFROM dim_customer c\nLEFT JOIN fact_transactions t ON c.customer_id = t.customer_id\nWHERE t.status = 'COMPLETED'\nGROUP BY c.customer_name, c.email\n-- Only include customers with lifetime value greater than 1000\nHAVING SUM(CASE WHEN t.status = 'COMPLETED' THEN t.amount ELSE 0 END) > 1000\nORDER BY total_completed_value DESC;",
+    "summary": "The query had a critical correctness issue with revenue calculation and minor readability issues. The corrected query now properly calculates lifetime value and includes comments for clarity."
+  }
+}

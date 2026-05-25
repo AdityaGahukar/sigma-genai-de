@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: mart_transaction_summary
+    description: "Mart for summarizing transaction data including revenue, failure rate, and merchant details."
+
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for each transaction."
+
+      - name: merchant_name
+        description: "Name of the merchant associated with the transaction."
+
+      - name: total_revenue
+        description: "Total revenue generated from completed transactions."
+
+      - name: failure_rate_pct
+        description: "Percentage of transactions that failed."
+
+        tests:
+          - accepted_values:
+              arguments:
+                values: [999]
