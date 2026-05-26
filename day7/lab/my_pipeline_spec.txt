@@ -1,0 +1,38 @@
+Team: 2 — Merchant Fraud Detection Feed
+
+Goal:
+Detect merchants with unusually high transaction failure rates and produce a daily merchant risk table.
+
+Inputs:
+- Bronze transactions parquet: path provided by `BRONZE_TRANSACTIONS_PATH` (partitioned by `ingestion_timestamp`)
+- Bronze merchants parquet: path provided by `BRONZE_MERCHANTS_PATH`
+
+Expected Columns (transactions): transaction_id, merchant_id, amount, status, transaction_date, ingestion_timestamp
+Expected Columns (merchants): merchant_id, merchant_name, category, city
+
+Transform Steps:
+1. Read Bronze transactions for `RUN_DATE` (partition prune by `ingestion_timestamp`).
+2. Validate schema; drop rows with NULL `transaction_id` or `merchant_id` or NULL `amount`.
+3. Cast types: amount -> float, transaction_date -> date.
+4. Calculate per-merchant daily failure_rate = failed_txns / total_txns.
+5. Flag merchants where failure_rate > 0.30 as `suspicious` and assign a `confidence_level` (LOW/MEDIUM/HIGH) based on txn volume.
+
+Outputs:
+- Gold table `merchant_risk_scores` written to `GOLD_MERCHANT_PERFORMANCE_PATH` (partitioned by `date`)
+
+Schedule: Daily, run after EOD ingestion (cron/job orchestrator sets `RUN_DATE` and `RUN_ID`)
+
+Run-time environment variables (required):
+- TRANSACTIONS_INPUT_PATH
+- MERCHANTS_INPUT_PATH
+- BRONZE_TRANSACTIONS_PATH
+- BRONZE_MERCHANTS_PATH
+- SILVER_OUTPUT_PATH
+- GOLD_MERCHANT_PERFORMANCE_PATH
+- RUN_date
+- RUN_ID
+- METADATA_OUTPUT_PATH
+
+Validation & Tests:
+- Unit test: synthetic transactions where merchant X has 40% failures -> should be flagged suspicious.
+- Integration test: run pipeline for sample `RUN_date` and assert `merchant_risk_scores` exists and contains `suspicious` values.
