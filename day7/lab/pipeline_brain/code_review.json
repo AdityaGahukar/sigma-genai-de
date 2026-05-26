@@ -1,0 +1,98 @@
+{
+  "checkpoints": [
+    {
+      "id": 1,
+      "name": "IDEMPOTENCY",
+      "status": "PASS",
+      "finding": "All write operations use overwrite mode.",
+      "fix": ""
+    },
+    {
+      "id": 2,
+      "name": "ERROR_HANDLING",
+      "status": "PASS",
+      "finding": "Each pipeline stage is wrapped in try/except blocks.",
+      "fix": ""
+    },
+    {
+      "id": 3,
+      "name": "PARTITION_PRUNING",
+      "status": "PASS",
+      "finding": "Read operations are filtered by date/partition column.",
+      "fix": ""
+    },
+    {
+      "id": 4,
+      "name": "ROW_COUNT_LOGGING",
+      "status": "PASS",
+      "finding": "Row count is logged after each transformation stage.",
+      "fix": ""
+    },
+    {
+      "id": 5,
+      "name": "BUSINESS_RULES",
+      "status": "PASS",
+      "finding": "Revenue is calculated as SUM(amount) WHERE status='COMPLETED'.",
+      "fix": ""
+    },
+    {
+      "id": 6,
+      "name": "NULL_HANDLING",
+      "status": "PASS",
+      "finding": "NULL checks are present on primary key and critical columns.",
+      "fix": ""
+    },
+    {
+      "id": 7,
+      "name": "BROADCAST_HINT",
+      "status": "PASS",
+      "finding": "broadcast() is used on the merchant dimension join.",
+      "fix": ""
+    },
+    {
+      "id": 8,
+      "name": "HARDCODED_PATHS",
+      "status": "PASS",
+      "finding": "File paths are not hardcoded as strings.",
+      "fix": ""
+    },
+    {
+      "id": 9,
+      "name": "SCHEMA_VALIDATION",
+      "status": "PASS",
+      "finding": "There are checks that expected columns exist before transforming.",
+      "fix": ""
+    },
+    {
+      "id": 10,
+      "name": "DEDUPLICATION",
+      "status": "PASS",
+      "finding": "There is explicit dedup logic on transaction_id.",
+      "fix": ""
+    },
+    {
+      "id": 11,
+      "name": "METADATA_OUTPUT",
+      "status": "PASS",
+      "finding": "The pipeline writes a run summary JSON at the end.",
+      "fix": ""
+    },
+    {
+      "id": 12,
+      "name": "IMPORTS",
+      "status": "PASS",
+      "finding": "All imports are present and specific.",
+      "fix": ""
+    }
+  ],
+  "summary": {
+    "pass_count": 12,
+    "fail_count": 0,
+    "warn_count": 0,
+    "merge_recommendation": "APPROVE",
+    "top_3_fixes": []
+  },
+  "reviewed_file": "pipeline_brain/generated_pipeline.py",
+  "reviewed_at": "2026-05-26T12:11:53.710185+00:00",
+  "model": "amazon.nova-pro-v1:0"
+}
