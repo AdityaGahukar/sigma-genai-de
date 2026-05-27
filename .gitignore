@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 venv/
 dbt_env/
+venv_obs/
 env/
 .env
 .env.local
