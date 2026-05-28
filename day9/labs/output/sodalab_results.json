@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "table": "day2_orders",
+      "definition": "row_count > 0",
+      "outcome": "pass"
+    },
+    {
+      "table": "day2_orders",
+      "definition": "missing_count(order_id) = 0",
+      "outcome": "pass"
+    },
+    {
+      "table": "day2_orders",
+      "definition": "duplicate_count(order_id) = 0",
+      "outcome": "fail"
+    },
+    {
+      "table": "day2_orders",
+      "definition": "missing_count(customer_id) = 0",
+      "outcome": "fail"
+    },
+    {
+      "table": "day2_orders",
+      "definition": "min(amount) >= 0",
+      "outcome": "fail"
+    },
+    {
+      "table": "day2_orders",
+      "definition": "invalid_count(status) = 0",
+      "outcome": "fail"
+    }
+  ]
+}
