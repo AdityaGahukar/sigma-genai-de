@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-29T10:15:22.123456",
+  "crew_output": "<FULL TEXT OUTPUT FROM ALL 3 AGENTS>",
+  "tasks_completed": 3,
+  "agents": [
+    "Data Scout",
+    "SQL Surgeon",
+    "Quality Guardian"
+  ],
+  "student_judgment": "LangGraph for deterministic orchestration, CrewAI for human-style collaboration."
+}

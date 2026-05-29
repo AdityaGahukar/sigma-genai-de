@@ -3,4 +3,4 @@ Question: Which 3 merchants had the most suspicious transaction patterns? Look f
 Steps taken: 3
 
 Answer:
-The approach to identify the 3 merchants with the most suspicious transaction patterns involves calculating transaction counts and average amounts, filtering for high-volume merchants, and then identifying those with unusually high or low average amounts. The specific merchants, their transaction counts, and average amounts would be determined by executing the outlined queries against the actual database.
+Hypothetically, the three merchants with the most suspicious transaction patterns would be identified by having both a high transaction count and an average transaction amount that significantly deviates from the overall average. Without actual data, I cannot provide specific merchant names, transaction counts, or average amounts.
